@@ -1,0 +1,104 @@
+﻿@model Story
+
+<a href="#" class="btn-first">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span> Click me to continue
+</a>
+@{
+    var url = "http://lovestories.somee.com/Upload/" + Model.StoryIntro.Background;
+    url = url.Replace("\\", "/");
+}
+
+
+<div class="container d-none">
+    <input type="hidden" value="@Model.StoryIntro.Audio" id="intro-audio" />
+    <!-- Background -->
+    <div class="banner">
+        <div class="blocks"></div>
+    </div>
+
+    <style>
+        .banner .blocks {
+            position: relative;
+            display: block;
+            width: 5vw;
+            height: 5vw;
+            background-size: cover;
+            animation: animate 0.75s forwards;
+             /*forwards là để giữ lại vị trí khi hoàn thành, nếu không là nó quay về vị trí cũ*/
+        }
+
+        .banner .blocks:nth-child(even) {
+            animation: animate 1s forwards;
+        }
+
+        @@keyframes animate {
+        0% {
+            opacity: 0;
+            transform: scale(0) translateY(1000px);
+        }
+
+        50% {
+            opacity: 1;
+            /*background-image: url('./../images/bg.jpeg');*/
+            background-image: url('@url');
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        100% {
+            opacity: 1;
+            transform: scale(1) translateY(0px);
+            background-image: url('@url');
+            background-position: center;
+            background-attachment: fixed;
+        }
+}
+    </style>
+
+    <div class="greetingClass">
+        @foreach (var item in Model.StoryIntro.StoryIntroItems)
+        {
+            <p>@item.Description</p>
+        }
+    </div>
+
+    <div class="choose d-none">
+        <h3>@Model.StoryIntro.Question</h3>
+        <p>Hãy trả lời thật lòng nhé. Nếu thoát ra là bạn đã đồng ý rồi nhé!</p>
+        <div class="choose-wrap">
+
+            <div class="choose-ok">
+                <a asp-controller="Story" asp-action="Poem" asp-route-id="@Model.Id">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span> Có
+                </a>
+            </div>
+            <div class="choose-no">
+
+                <a href="#">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span> Không
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts{
+    <link rel="stylesheet" href="/css/style1.css">
+    <!-- Font Color -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=neon|outline|emboss|shadow-multiple">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=fire">
+
+    <script src="/theme/hoa.js"></script>
+    <script src='/js/script.js'></script>
+    <script src='/js/choose.js'></script>
+}

@@ -1,0 +1,78 @@
+﻿@model Story
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/css/style3.css">
+
+
+    <title>Web tỏ tình</title>
+</head>
+@{
+    var bg = "http://lovestories.somee.com/Upload/" + Model.StoryCelebrate.Background;
+    bg = bg.Replace("\\", "/");
+}
+<body style="background-image: url('@bg')">
+
+    <input type="hidden" value="@Model.StoryCelebrate.Audio" id="celebrate-audio" />
+    <h1 class="title d-none">
+        @Model.StoryCelebrate.Title
+    </h1>
+    <div class="first">
+        <div class="wrap-first">
+            <i class="fas fa-arrow-down font-effect-neon"></i>
+            <p class="btn-continue-first">Click me</p>
+        </div>
+    </div>
+    <div class="container">
+
+
+        @foreach (var item in Model.StoryCelebrate.StoryCelebrateItems)
+        {
+            <div class="image vh-fix">
+                <div class="content">
+                    @item.Description
+                </div>
+            </div>
+        }
+        @if (Model.StoryCelebrate.StoryCelebrateItems.Count % 2 != 0)
+        {
+            <div class="image vh-fix d-none">
+                <div class="content">
+
+                </div>
+            </div>
+        }
+
+        <style>
+            @for (int i=0 ; i < Model.StoryCelebrate.StoryCelebrateItems.Count;i++)
+            {
+
+                var url = "http://lovestories.somee.com/Upload/" + Model.StoryCelebrate.StoryCelebrateItems[i].Image;
+                url = url.Replace("\\", "/");
+
+                <text>
+                    .image:nth-child(@(i+1)){
+                        background-image: url("@url");
+                    }
+                </text>
+            }
+        </style>
+
+
+    </div>
+
+    <script src="/theme/hoa.js"></script>
+    <script src="/js/script3.js"></script>
+
+</body>
+
+</html>

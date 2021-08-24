@@ -1,0 +1,55 @@
+- Globals
+	- 1	Name
+	- đã có hình nền
+	- thời gian tạo
+	- nội dung
+
+- trang 1:	
+	- 1	Hình background
+	- 1 	Audio bài hát
+	- N 	text greeting
+	- 1	câu  hỏi
+
+-  Trang 2
+	- 1  	Hình  background 
+	- 1 	Audio bài hát
+	- 1 	Title
+	- 1 	bài thơ 12 dòng
+	- 1 	Tên tác giả
+
+-  Trang 3
+	- 1  	Hình  background 
+	- 1 	Audio bài hát
+	- N 	Item:  hình + nội dung
+
+--------------------------------------------------------------
+- Store
+	AppUser		AppUser		Author
+
+	name		string
+	avatar		string
+	dateCreated	Datetime
+	description	string
+	
+	StoreIntro	StoreIntro
+	StorePoem	StorePoem
+	StoreCelebrate	StoreCelebrate
+	
+- StoreIntro
+	Store		Store	
+
+	background	string
+	audio		string	
+	StoreIntroItems	List<StoreIntroItem>	
+
+- StoreIntroItem
+	StoreIntro	StoreIntro
+	
+	description	string
+	 
+- StorePoem
+- StorePoemItem
+
+- StoreCelebrate
+
+- StoreCelebrateItem

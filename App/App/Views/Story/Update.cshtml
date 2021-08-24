@@ -1,0 +1,222 @@
+﻿@model StoryUpdateRequest
+<!-- MultiStep Form -->
+<div class="container-fluid" id="grad1">
+    <div class="row justify-content-center mt-0">
+        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
+            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                <h2><strong>Cập nhật Story</strong></h2>
+                <p>Điền thông tin cần cập nhật</p>
+                <div class="row">
+                    <div class="col-md-12 mx-0">
+                        <form id="msform" asp-controller="Story" asp-action="Update" method="post" enctype="multipart/form-data">
+                            <input type="hidden" asp-for="Id" />
+                            <!-- progressbar -->
+                            <ul id="progressbar">
+                                <li class="active" id="account"><strong>Thông tin</strong></li>
+                                <li id="personal"><strong>Giới thiệu</strong></li>
+                                <li id="payment"><strong>Tỏ tình</strong></li>
+                                <li id="confirm"><strong>Kỷ niệm</strong></li>
+                            </ul> <!-- fieldsets -->
+                            <fieldset>
+                                <div class="form-card">
+                                    <h2 class="fs-title">Thông tin về story</h2>
+                                    <div class="row">
+                                        <label asp-for="StoryName" class="col-2 pl-4 pt-1"></label>
+                                        <input type="text" asp-for="StoryName" class="col-9" placeholder="Tên story" />
+                                    </div>
+                                    <div class="row">
+                                        <label asp-for="StoryAvatar" class="col-2 pl-4 pt-1"></label>
+                                        <input type="file" asp-for="StoryAvatar" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" class="col-9" />
+                                    </div>
+                                    <div class="row">
+                                        <label asp-for="Description" class="col-2 pl-4 pt-1"></label>
+                                        <input type="text" asp-for="Description" class="col-9" placeholder="Mô tả" />
+                                    </div>
+                                </div>
+
+                                <input type="button" name="next" class="next action-button" value="Tiếp" id="store-1" />
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-card">
+                                    <h2 class="fs-title">Thông tin trang giới thiệu</h2>
+                                    <div class="row">
+                                        <label asp-for="IntroBackground" class="col-2 pl-4 pt-1"></label>
+                                        <input type="file" asp-for="IntroBackground" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" class="col-9" />
+                                    </div>
+                                    <div class="row">
+                                        <label asp-for="IntroAudio" class="col-2 pl-4 pt-1"></label>
+                                        <input type="file" asp-for="IntroAudio" accept="audio/*" class="col-9" />
+                                    </div>
+
+                                    <div class="row">
+                                        <label class="col-2 pl-4 pt-1">Câu nói</label>
+                                        <!-- Button trigger modal -->
+                                        <a href="#" class="btn btn-outline-primary mb-2" id="btn-modal-intro">
+                                            Thêm câu nói
+                                        </a>
+
+                                        <!-- Modal -->
+                                        <div id="modal-intro" class="my-modal">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Những câu nói, hỏi, giới thiệu</h5>
+                                                    </div>
+                                                    <div class="modal-body modal-body-intro">
+                                                        <a href="#" class="btn-add-new-intro-item"><i class="fas fa-plus"></i></a>
+                                                        @foreach (var item in Model.StoryIntroDescriptionItems)
+                                                        {
+                                                            <div class="d-flex">
+                                                                <input type="text" name="StoryIntroDescriptionItems" value="@item" placeholder="Bạn muốn nói gì..." class="intro-item" />
+                                                                <a href="#" class="remove-intro-item"><i class="fas fa-minus text-danger"></i></a>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary btn-save-my-modal-intro">Lưu</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <label asp-for="IntroQuesttion" class="col-2 pl-4 pt-1"></label>
+                                        <input type="text" asp-for="IntroQuesttion" class="col-9" placeholder="Câu hỏi" />
+                                    </div>
+
+                                </div>
+                                <input type="button" name="previous" class="previous action-button-previous" value="Trước" />
+                                <input type="button" name="next" class="next action-button" value="Tiếp" id="store-2" />
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-card">
+                                    <h2 class="fs-title">Thông tin trang tỏ tình</h2>
+                                    <div class="row">
+                                        <label asp-for="PoemTitle" class="col-2 pl-4 pt-1"></label>
+                                        <input type="text" asp-for="PoemTitle" class="col-9" placeholder="Câu hỏi" />
+                                    </div>
+                                    <div class="row">
+                                        <label asp-for="PoemAuthor" class="col-2 pl-4 pt-1"></label>
+                                        <input type="text" asp-for="PoemAuthor" class="col-9" placeholder="Câu hỏi" />
+                                    </div>
+                                    <div class="row">
+                                        <label asp-for="PoemBackground" class="col-2 pl-4 pt-1"></label>
+                                        <input type="file" asp-for="PoemBackground" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" class="col-9" />
+                                    </div>
+                                    <div class="row">
+                                        <label asp-for="PoemAudio" accept="audio/*" class="col-2 pl-4 pt-1"></label>
+                                        <input type="file" asp-for="PoemAudio" class="col-9" />
+                                    </div>
+
+                                    <div class="row">
+                                        <label class="col-2 pl-4 pt-1">Bài thơ</label>
+                                        <!-- Button trigger modal -->
+                                        <a href="#" class="btn btn-outline-primary mb-2" id="btn-modal-poem">
+                                            Thêm thơ
+                                        </a>
+
+                                        <!-- Modal -->
+                                        <div id="modal-poem" class="my-modal">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Chèn 12 câu thơ của bạn</h5>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        @for (int i = 0; i < Model.StoryPoemDescriptionItems.Count; i++)
+                                                        {
+                                                            <input type="text" name="StoryPoemDescriptionItems" value="@Model.StoryPoemDescriptionItems[i]" placeholder="Câu thơ @i..." class="poem-item" />
+                                                        }
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary btn-save-my-modal-poem">Lưu</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <input type="button" name="previous" class="previous action-button-previous" value="Trước" />
+                                <input type="button" name="next" class="next action-button" value="Tiếp" id="store-3" />
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-card">
+                                    <h2 class="fs-title">Trang kỷ niệm</h2>
+                                    <div class="row">
+                                        <label asp-for="CelebrateTitle" class="col-2 pl-4 pt-1"></label>
+                                        <input type="text" asp-for="CelebrateTitle" class="col-9" />
+                                    </div>
+                                    <div class="row">
+                                        <label asp-for="CelebrateBackground" class="col-2 pl-4 pt-1"></label>
+                                        <input type="file" asp-for="CelebrateBackground" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" class="col-9" />
+                                    </div>
+                                    <div class="row">
+                                        <label asp-for="CelebrateAudio" accept="audio/*" class="col-2 pl-4 pt-1"></label>
+                                        <input type="file" asp-for="CelebrateAudio" class="col-9" />
+                                    </div>
+
+                                    <div class="row">
+                                        <label class="col-2 pl-4 pt-1">Kỷ niệm</label>
+                                        <!-- Button trigger modal -->
+                                        <a href="#" class="btn btn-outline-primary mb-2" id="btn-modal-celebrate">
+                                            Thêm kỷ niệm
+                                        </a>
+
+                                        <!-- Modal -->
+                                        <div id="modal-celebrate" class="my-modal">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Những kỷ niệm mà bạn muốn ôn lại</h5>
+                                                    </div>
+                                                    <div class="modal-body modal-body-celebrate">
+                                                        <a href="#" class="btn-add-new-celebrate-item-update"><i class="fas fa-plus"></i></a>
+                                                        @*@for (int i = 0; i < Model.StoryCelebrateDescriptionItems.Count; i++)
+                                                            {
+                                                                <div class="d-flex">
+                                                                    <input type="hidden" name="CelebrateItemsId" value="@Model.CelebrateItemsId[i]" />
+                                                                    <input type="file" value="C:\Users\Huynh Ngoc Son\Desktop\LoveTemp\index.html" name="StoryCelebrateImageItems" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" placeholder="Ảnh..." class="celebrate-image-item" />
+                                                                    <input type="text" name="StoryCelebrateDescriptionItems" placeholder="Nội dung..." value="@Model.StoryCelebrateDescriptionItems[i]" class="celebrate-description-item" />
+                                                                    <a href="#" class="remove-celebrate-item"><i class="fas fa-minus text-danger"></i></a>
+                                                                </div>
+                                                            }*@
+
+                                                        @for (int i = 0; i < Model.CelebrateUpdateRequests.Count; i++)
+                                                        {
+                                                            <div class="d-flex">
+                                                                <input type="hidden" asp-for="CelebrateUpdateRequests[i].Id" class="celebrate-id-item" />
+                                                                <input type="file" asp-for="CelebrateUpdateRequests[i].Image" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" placeholder="Ảnh..." class="celebrate-image-item" />
+                                                                <input type="text" asp-for="CelebrateUpdateRequests[i].Description" placeholder="Nội dung..." class="celebrate-description-item" />
+                                                                <a href="#" class="remove-celebrate-item"><i class="fas fa-minus text-danger"></i></a>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary btn-save-my-modal-celebrate-update">Lưu</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <input type="button" name="previous" class="previous action-button-previous" value="Trước" />
+                                <input type="button" name="next" class="next action-button" value="Cập nhật" id="store-4" />
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <link href="~/css/myModal.css" rel="stylesheet" />
+    <script src="~/js/myModal.js"></script>
+    <link href="~/css/formWizard.css" rel="stylesheet" />
+    <script src="~/js/formWizardUpdate.js"></script>
+}

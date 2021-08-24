@@ -1,0 +1,88 @@
+﻿@model Story
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/script2.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=neon|outline|emboss|shadow-multiple">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=fire">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <title>Web tỏ tình</title>
+</head>
+
+<body>
+    @{
+        var title = Model.StoryPoem.Title;
+        var titleFirst = title.Split(' ')[0].ToUpper();
+        var titleLast = title.Split(' ')[1].ToUpper();
+
+        if (titleFirst.Length > 1)
+            titleFirst = titleFirst.Substring(0, 1).ToUpper() + titleFirst.Substring(1, titleFirst.Length - 1).ToLower();
+
+        if (titleLast.Length > 1)
+            titleLast = titleLast.Substring(0, 1).ToUpper() + titleLast.Substring(1, titleLast.Length - 1).ToLower();
+
+        var url = "http://lovestories.somee.com//Upload/" + Model.StoryPoem.Background;
+        url = url.Replace("\\", "/");
+    }
+    <div class="my-container" style="background-image: url('@url')">
+        <input type="hidden" value="@Model.StoryPoem.Audio" id="poem-audio" />
+        <h1 class="d-none">
+            <span class="font-effect-neon">@titleFirst</span>
+            <i class="fas fa-heartbeat"></i>
+            <span class="font-effect-fire">@titleLast</span>
+        </h1>
+
+        <div class="first">
+            <div class="wrap-first">
+                <i class="fas fa-arrow-down font-effect-neon"></i>
+                <p class="btn-continue-first">Click me</p>
+            </div>
+        </div>
+
+        <div class="poem d-none">
+            <div class="poem-paragraph">
+                @{
+                    var poems = Model.StoryPoem.StoryPoemItems;
+                }
+                @for (int i = 0; i < 4; i++)
+                {
+                    <p>@poems[i].Description</p>
+                }
+            </div>
+            <div class="poem-paragraph">
+                @for (int i = 4; i < 8; i++)
+                {
+                    <p>@poems[i].Description</p>
+                }
+            </div>
+            <div class="poem-paragraph">
+                @for (int i = 8; i < 12; i++)
+                {
+                    <p>@poems[i].Description</p>
+                }
+            </div>
+            <h4 class="poem-author">- - - @Model.StoryPoem.Author - - -</h4>
+        </div>
+
+        <div class="continue d-none">
+            <a asp-controller="Story" asp-action="Celebrate" asp-route-id="@Model.Id">Continue!</a>
+        </div>
+
+    </div>
+
+    <script src="/theme/hoa.js"></script>
+    <script src="/js/script2.js"></script>
+
+</body>
+
+</html>
